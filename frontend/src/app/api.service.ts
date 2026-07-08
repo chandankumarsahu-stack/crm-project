@@ -6,7 +6,7 @@ import {
   LeadType, CustomerLead, FollowUp, Note, DashboardStats, LeadSearchCriteria
 } from './models';
 
-const BASE = 'https://crm-backend-g86e.onrender.com';
+const BASE = 'https://crm-backend-g86e.onrender.com/api';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
