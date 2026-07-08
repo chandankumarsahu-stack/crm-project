@@ -1,0 +1,10 @@
+# Backend exclusions
+backend/target/
+backend/.classpath
+backend/.project
+backend/.settings/
+
+# Frontend exclusions
+frontend/node_modules/
+frontend/.angular/
+frontend/dist/

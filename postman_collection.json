@@ -1,0 +1,15 @@
+{
+  "info": { "name": "Customer Lead CRM API", "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json" },
+  "item": [
+    { "name": "Login", "request": { "method": "POST", "header": [{"key":"Content-Type","value":"application/json"}], "url": "http://localhost:8080/api/auth/login", "body": { "mode": "raw", "raw": "{\"username\":\"admin\",\"password\":\"admin123\"}" } } },
+    { "name": "Get Lead Types", "request": { "method": "GET", "url": "http://localhost:8080/api/lead-types" } },
+    { "name": "Create Lead Type", "request": { "method": "POST", "header": [{"key":"Content-Type","value":"application/json"}], "url": "http://localhost:8080/api/lead-types", "body": { "mode": "raw", "raw": "{\"name\":\"School Admission\",\"description\":\"Admissions leads\"}" } } },
+    { "name": "Get Leads", "request": { "method": "GET", "url": "http://localhost:8080/api/leads" } },
+    { "name": "Create Lead", "request": { "method": "POST", "header": [{"key":"Content-Type","value":"application/json"}], "url": "http://localhost:8080/api/leads", "body": { "mode": "raw", "raw": "{\"customerName\":\"John Doe\",\"mobile\":\"9999999999\",\"leadTypeId\":1,\"city\":\"Cuttack\",\"status\":\"New\",\"priority\":\"Hot\"}" } } },
+    { "name": "Search Leads", "request": { "method": "POST", "header": [{"key":"Content-Type","value":"application/json"}], "url": "http://localhost:8080/api/leads/search", "body": { "mode": "raw", "raw": "{\"city\":\"Cuttack\",\"priority\":\"Hot\"}" } } },
+    { "name": "Dashboard Stats", "request": { "method": "GET", "url": "http://localhost:8080/api/leads/dashboard" } },
+    { "name": "Reminders", "request": { "method": "GET", "url": "http://localhost:8080/api/leads/reminders" } },
+    { "name": "Add Follow-up", "request": { "method": "POST", "header": [{"key":"Content-Type","value":"application/json"}], "url": "http://localhost:8080/api/leads/1/followups", "body": { "mode": "raw", "raw": "{\"followupDate\":\"2026-07-10\",\"remarks\":\"Called, interested\",\"statusAtFollowup\":\"Interested\",\"nextFollowupDate\":\"2026-07-15\"}" } } },
+    { "name": "Add Note", "request": { "method": "POST", "header": [{"key":"Content-Type","value":"application/json"}], "url": "http://localhost:8080/api/leads/1/notes", "body": { "mode": "raw", "raw": "{\"noteText\":\"Prefers evening calls\"}" } } }
+  ]
+}
