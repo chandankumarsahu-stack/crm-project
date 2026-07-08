@@ -1,296 +1,243 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Poppins',sans-serif;
-transition:.3s;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
-:root{
-
---primary:#4F7CFF;
---secondary:#8A4DFF;
---cyan:#00E5FF;
-
---success:#00D68F;
---danger:#FF4D6D;
---warning:#FFB020;
-
---radius:24px;
-
+:root {
+    --primary: #6366f1;
+    --secondary: #a855f7;
+    --cyan: #06b6d4;
+    
+    --success: #10b981;
+    --danger: #ef4444;
+    --warning: #f59e0b;
+    
+    --radius: 20px;
 }
 
-/* ---------- DARK ---------- */
+/* ---------- BLUR ABSTRACT BACKGROUNDS ---------- */
 
-body.dark{
+body.dark {
+    --bg: #030712;
+    --bg2: #0b0f19;
+    --card: rgba(15, 23, 42, 0.45);
+    --text: #f9fafb;
+    --text2: #9ca3af;
+    --border: rgba(255, 255, 255, 0.06);
 
---bg:#070B18;
---bg2:#10182F;
-
---card:rgba(17,24,39,.75);
-
---text:#ffffff;
-
---text2:#BFC9E8;
-
---border:rgba(255,255,255,.08);
-
-background:
-
-radial-gradient(circle at top left,#193d92 0%,transparent 28%),
-
-radial-gradient(circle at bottom right,#52168f 0%,transparent 30%),
-
-linear-gradient(145deg,#050816,#09111f,#050816);
-
-background-attachment:fixed;
-
-color:var(--text);
-
+    /* Smooth blur spots that look like professional UI background graphics */
+    background: 
+        radial-gradient(circle at 15% 15%, rgba(99, 102, 241, 0.15) 0%, transparent 40%),
+        radial-gradient(circle at 85% 85%, rgba(168, 85, 247, 0.15) 0%, transparent 40%),
+        linear-gradient(135deg, #030712, #0f172a, #030712);
+    background-attachment: fixed;
+    color: var(--text);
 }
 
-/* ---------- LIGHT ---------- */
+body.light {
+    --bg: #f8fafc;
+    --bg2: #ffffff;
+    --card: rgba(255, 255, 255, 0.45);
+    --text: #0f172a;
+    --text2: #64748b;
+    --border: rgba(99, 102, 241, 0.08);
 
-body.light{
-
---bg:#eef2ff;
-
---bg2:#ffffff;
-
---card:rgba(255,255,255,.82);
-
---text:#222;
-
---text2:#555;
-
---border:#dde5ff;
-
-background:
-
-linear-gradient(135deg,#eef3ff,#ffffff);
-
-color:var(--text);
-
+    background: 
+        radial-gradient(circle at 10% 10%, rgba(99, 102, 241, 0.06) 0%, transparent 35%),
+        radial-gradient(circle at 90% 90%, rgba(168, 85, 247, 0.06) 0%, transparent 35%),
+        linear-gradient(135deg, #f1f5f9, #ffffff);
+    background-attachment: fixed;
+    color: var(--text);
 }
 
-/* ---------- GLASS ---------- */
+/* ---------- REAL GLASSMORPHISM (Enhanced Blur) ---------- */
 
-.glass{
-
-background:var(--card);
-
-backdrop-filter:blur(20px);
-
-border:1px solid var(--border);
-
-border-radius:var(--radius);
-
-box-shadow:
-
-0 15px 45px rgba(0,0,0,.18);
-
+.glass, .crm-card, .navbar {
+    backdrop-filter: blur(24px) saturate(120%);
+    -webkit-backdrop-filter: blur(24px) saturate(120%);
 }
 
-/* ---------- 3D CARD ---------- */
+/* ---------- CLEAN AESTHETIC CARDS (Removed 3D tilt) ---------- */
 
-.crm-card{
-
-background:var(--card);
-
-border-radius:26px;
-
-border:1px solid var(--border);
-
-padding:28px;
-
-backdrop-filter:blur(20px);
-
-transform-style:preserve-3d;
-
-box-shadow:
-
-0 15px 40px rgba(0,0,0,.2),
-
-0 0 40px rgba(79,124,255,.15);
-
-overflow:hidden;
-
-position:relative;
-
+.crm-card {
+    background: var(--card);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    padding: 24px;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.15);
+    position: relative;
+    overflow: hidden;
 }
 
-.crm-card::before{
-
-content:"";
-
-position:absolute;
-
-width:220px;
-
-height:220px;
-
-right:-70px;
-
-top:-70px;
-
-border-radius:50%;
-
-background:rgba(79,124,255,.18);
-
-filter:blur(40px);
-
+.crm-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(99, 102, 241, 0.25);
+    box-shadow: 0 12px 40px 0 rgba(99, 102, 241, 0.12);
 }
 
-.crm-card:hover{
+/* ---------- MODERN PILL BADGES FOR STATUS & PRIORITY ---------- */
 
-transform:
-
-translateY(-8px)
-
-rotateX(5deg)
-
-rotateY(-5deg);
-
-box-shadow:
-
-0 30px 60px rgba(0,0,0,.3),
-
-0 0 45px rgba(79,124,255,.4);
-
+.badge-custom {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 14px;
+    border-radius: 100px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border: 1px solid transparent;
 }
 
-/* ---------- BUTTON ---------- */
-
-.btn-modern{
-
-border:none;
-
-padding:12px 26px;
-
-border-radius:16px;
-
-background:
-
-linear-gradient(135deg,
-
-var(--primary),
-
-var(--secondary));
-
-color:white;
-
-font-weight:600;
-
-box-shadow:
-
-0 0 20px rgba(79,124,255,.35);
-
+/* Glowing Dynamic States instead of white backgrounds */
+.badge-hot {
+    background: rgba(239, 68, 68, 0.12) !important;
+    color: #f87171 !important;
+    border-color: rgba(239, 68, 68, 0.2) !important;
+    box-shadow: 0 0 12px rgba(239, 68, 68, 0.1);
 }
 
-.btn-modern:hover{
-
-transform:
-
-translateY(-3px)
-
-scale(1.05);
-
-box-shadow:
-
-0 0 40px rgba(79,124,255,.65);
-
+.badge-warm {
+    background: rgba(245, 158, 11, 0.12) !important;
+    color: #fbbf24 !important;
+    border-color: rgba(245, 158, 11, 0.2) !important;
 }
 
-/* ---------- INPUT ---------- */
-
-.input-modern{
-
-width:100%;
-
-padding:14px 18px;
-
-border-radius:18px;
-
-background:rgba(255,255,255,.05);
-
-border:1px solid var(--border);
-
-color:var(--text);
-
-outline:none;
-
+.badge-cold {
+    background: rgba(6, 182, 212, 0.12) !important;
+    color: #22d3ee !important;
+    border-color: rgba(6, 182, 212, 0.2) !important;
 }
 
-.input-modern:focus{
-
-border-color:var(--primary);
-
-box-shadow:
-
-0 0 30px rgba(79,124,255,.25);
-
+.badge-won {
+    background: rgba(16, 185, 129, 0.12) !important;
+    color: #34d399 !important;
+    border-color: rgba(16, 185, 129, 0.2) !important;
+    box-shadow: 0 0 12px rgba(16, 185, 129, 0.1);
 }
 
-/* ---------- TABLE ---------- */
+/* ---------- PREMIUM BUTTONS ---------- */
 
-.table{
-
-background:transparent;
-
-color:var(--text);
-
+.btn-modern {
+    border: none;
+    padding: 12px 24px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    box-shadow: 0 4px 20px rgba(99, 102, 241, 0.25);
 }
 
-.table thead{
-
-background:
-
-linear-gradient(135deg,
-
-var(--primary),
-
-var(--secondary));
-
-color:white;
-
+.btn-modern:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 24px rgba(99, 102, 241, 0.45);
 }
 
-.table tbody tr:hover{
+/* ---------- MINIMALIST INPUTS ---------- */
 
-background:rgba(79,124,255,.08);
-
+.input-modern {
+    width: 100%;
+    padding: 12px 16px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border);
+    color: var(--text);
+    outline: none;
+    font-size: 0.9rem;
 }
 
-/* ---------- NAVBAR ---------- */
-
-.navbar{
-
-background:rgba(15,20,35,.75)!important;
-
-backdrop-filter:blur(18px);
-
-border-bottom:1px solid rgba(255,255,255,.08);
-
+body.light .input-modern {
+    background: rgba(0, 0, 0, 0.02);
 }
 
-/* ---------- SCROLL ---------- */
-
-::-webkit-scrollbar{
-
-width:8px;
-
+.input-modern:focus {
+    border-color: var(--primary);
+    background: rgba(255, 255, 255, 0.05);
+    box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.12);
 }
 
-::-webkit-scrollbar-thumb{
+/* ---------- PREMIUM TABLES ---------- */
 
-background:
+.table {
+    background: transparent;
+    color: var(--text);
+    border-collapse: separate;
+    border-spacing: 0 8px; /* Gives row items a clean segmented feel */
+}
 
-linear-gradient(var(--primary),
+.table thead th {
+    background: transparent;
+    color: var(--text2);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    padding: 16px;
+    border: none;
+}
 
-var(--secondary));
+.table tbody tr {
+    background: var(--card);
+}
 
-border-radius:20px;
+.table tbody tr td {
+    padding: 16px;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+}
 
+.table tbody tr td:first-child {
+    border-left: 1px solid var(--border);
+    border-top-left-radius: 12px;
+    border-bottom-left-radius: 12px;
+}
+
+.table tbody tr td:last-child {
+    border-right: 1px solid var(--border);
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+}
+
+.table tbody tr:hover {
+    background: rgba(99, 102, 241, 0.05) !important;
+    transform: scale(1.005);
+}
+
+/* ---------- GLASS NAVBAR ---------- */
+
+.navbar {
+    background: rgba(3, 7, 18, 0.6) !important;
+    border-bottom: 1px solid var(--border);
+    padding: 16px 24px;
+}
+
+body.light .navbar {
+    background: rgba(255, 255, 255, 0.6) !important;
+}
+
+/* ---------- WEBKIT SCROLLBAR ---------- */
+
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(99, 102, 241, 0.3);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--primary);
 }
