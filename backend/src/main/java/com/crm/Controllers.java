@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
+@CrossOrigin(origins = "https://zingcrm.netlify.app")
 @RestController
 @RequestMapping("/api/auth")
 class AuthController {
@@ -29,6 +30,7 @@ class AuthController {
     }
 }
 
+@CrossOrigin(origins = "https://zingcrm.netlify.app")
 @RestController
 @RequestMapping("/api/lead-types")
 class LeadTypeController {
@@ -51,10 +53,11 @@ class LeadTypeController {
     }
 }
 
+@CrossOrigin(origins = "https://zingcrm.netlify.app")
 @RestController
 @RequestMapping("/api/leads")
 class CustomerLeadController {
-	@Autowired
+    @Autowired
     private CustomerLeadService leadService;
 
     // Endpoint to Export Excel
