@@ -10,7 +10,7 @@ import { ThemeService } from './theme.service';
   imports: [CommonModule, RouterOutlet, RouterLink, RouterLinkActive],
   template: `
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-3" *ngIf="auth.isLoggedIn()">
-      <a class="navbar-brand" routerLink="/dashboard">📋 Lead CRM</a>
+      <a class="navbar-brand" routerLink="/dashboard">ZING CRM</a>
       <div class="navbar-nav me-auto">
         <a class="nav-link" routerLink="/dashboard" routerLinkActive="active fw-bold">Dashboard</a>
         <a class="nav-link" routerLink="/leads" routerLinkActive="active fw-bold">Customer Leads</a>
