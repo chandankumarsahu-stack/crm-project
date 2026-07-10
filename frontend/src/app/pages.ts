@@ -22,13 +22,20 @@ import {
 
   <div class="login-card glass">
 
-    <div class="logo-circle">
-      <span>CRM</span>
+    <div class="text-center mb-4">
+    <img
+  src="assets/images/logo.png"
+  alt="ZING CRM"
+  width="90"
+  class="mb-3 img-fluid">
+
+      <h1 class="fw-bold">ZING CRM</h1>
+
+      <p class="subtitle">
+        Manage Customers.<br>
+        Grow Relationships.
+      </p>
     </div>
-
-    <h2>Welcome Back</h2>
-    <p class="subtitle">Customer Relationship Management</p>
-
     <form [formGroup]="form" (ngSubmit)="submit()">
 
   <div class="input-group-modern">

@@ -241,3 +241,18 @@ body.light .navbar {
 ::-webkit-scrollbar-thumb:hover {
     background: var(--primary);
 }
+.login-card {
+    width: 100%;
+    max-width: 460px;
+    margin: 0 auto;
+    padding: 40px;
+    border-radius: 24px;
+    backdrop-filter: blur(16px);
+}
+
+.btn-login {
+    height: 52px;
+    border-radius: 14px;
+    font-size: 18px;
+    font-weight: 600;
+}

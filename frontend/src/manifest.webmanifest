@@ -1,0 +1,22 @@
+{
+  "name": "ZING CRM",
+  "short_name": "ZING",
+  "theme_color": "#2563EB",
+  "background_color": "#111827",
+  "display": "standalone",
+  "scope": "/",
+  "start_url": "/",
+  "description": "Manage Customers. Grow Relationships.",
+  "icons": [
+    {
+      "src": "assets/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
