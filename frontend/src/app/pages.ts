@@ -22,13 +22,20 @@ import {
 
   <div class="login-card glass">
 
-    <div class="logo-circle">
-      <span>CRM</span>
+    <div class="text-center mb-4">
+    <img
+  src="assets/images/logo.png"
+  alt="ZING CRM"
+  width="90"
+  class="mb-3 img-fluid">
+
+      <h1 class="fw-bold">ZING CRM</h1>
+
+      <p class="subtitle">
+        Manage Customers.<br>
+        Grow Relationships.
+      </p>
     </div>
-
-    <h2>Welcome Back</h2>
-    <p class="subtitle">Customer Relationship Management</p>
-
     <form [formGroup]="form" (ngSubmit)="submit()">
 
   <div class="input-group-modern">
@@ -262,21 +269,56 @@ export class LeadTypeComponent implements OnInit {
     <div class="row">
       <!-- List -->
       <div class="col-md-7">
-        <table class="table table-sm table-striped bg-white">
+        <table class="table">
           <thead>
-            <tr><th>Name</th><th>Mobile</th><th>Type</th><th>Status</th><th>Priority</th><th>Next Follow-up</th><th></th></tr>
+            <tr>
+              <th>Name</th>
+              <th>Mobile</th>
+              <th>Type</th>
+              <th>Status</th>
+              <th>Priority</th>
+              <th>Next Follow-up</th>
+              <th></th>
+            </tr>
           </thead>
           <tbody>
             <tr *ngFor="let l of leads" class="clickable" [class.table-active]="selected?.id === l.id" (click)="select(l)">
               <td>{{ l.customerName }}</td>
               <td>{{ l.mobile }}</td>
               <td>{{ l.leadType?.name }}</td>
-              <td>{{ l.status }}</td>
-              <td><span class="badge" [ngClass]="{'badge-hot': l.priority==='Hot', 'badge-warm': l.priority==='Warm', 'badge-cold': l.priority==='Cold', 'bg-secondary': l.priority==='Not a Customer'}">{{ l.priority }}</span></td>
+              
+              <!-- 1. GLOWING STATUS BADGES -->
+              <td>
+                <span class="badge-custom" [ngClass]="{
+                  'badge-won': l.status === 'Closed Won',
+                  'badge-hot': l.status === 'Interested' || l.status === 'New',
+                  'badge-warm': l.status === 'Follow Up' || l.status === 'Contacted' || l.status === 'Visit Scheduled',
+                  'badge-cold': l.status === 'Not Interested' || l.status === 'Closed Lost'
+                }">
+                  {{ l.status }}
+                </span>
+              </td>
+              
+              <!-- 2. GLOWING PRIORITY BADGES -->
+              <td>
+                <span class="badge-custom" [ngClass]="{
+                  'badge-hot': l.priority === 'Hot', 
+                  'badge-warm': l.priority === 'Warm', 
+                  'badge-cold': l.priority === 'Cold', 
+                  'bg-secondary text-white': l.priority === 'Not a Customer'
+                }">
+                  {{ l.priority }}
+                </span>
+              </td>
+              
               <td>{{ l.nextFollowupDate }}</td>
-              <td><button class="btn btn-sm btn-outline-danger" (click)="remove(l, $event)">Del</button></td>
+              <td>
+                <button class="btn btn-sm btn-outline-danger" (click)="remove(l, $event)">Del</button>
+              </td>
             </tr>
-            <tr *ngIf="leads.length === 0"><td colspan="7" class="text-center text-muted">No leads found</td></tr>
+            <tr *ngIf="leads.length === 0">
+              <td colspan="7" class="text-center text-muted">No leads found</td>
+            </tr>
           </tbody>
         </table>
       </div>
