@@ -61,6 +61,9 @@ export class ApiService {
   // ---- Dashboard & Reminders ----
   getDashboardStats(): Observable<DashboardStats> { return this.http.get<DashboardStats>(`${BASE}/leads/dashboard`); }
   getReminders(): Observable<CustomerLead[]> { return this.http.get<CustomerLead[]>(`${BASE}/leads/reminders`); }
+  getMonthlyLeadStats(): Observable<any[]> {
+  return this.http.get<any[]>(`${BASE}/leads/dashboard/monthly`);
+}
 
   // ---- Follow-ups ----
   getFollowups(leadId: number): Observable<FollowUp[]> { return this.http.get<FollowUp[]>(`${BASE}/leads/${leadId}/followups`); }

@@ -1,12 +1,10 @@
 {
   "name": "ZING CRM",
-  "short_name": "ZING",
-  "theme_color": "#2563EB",
-  "background_color": "#111827",
-  "display": "standalone",
-  "scope": "/",
+  "short_name": "ZING CRM",
   "start_url": "/",
-  "description": "Manage Customers. Grow Relationships.",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#2563eb",
   "icons": [
     {
       "src": "assets/icons/icon-192x192.png",
@@ -17,6 +15,38 @@
       "src": "assets/icons/icon-512x512.png",
       "sizes": "512x512",
       "type": "image/png"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Dashboard",
+      "url": "/dashboard",
+      "icons": [
+        {
+          "src": "assets/icons/icon-192x192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Customer Leads",
+      "url": "/leads",
+      "icons": [
+        {
+          "src": "assets/icons/icon-192x192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Reminders",
+      "url": "/reminders",
+      "icons": [
+        {
+          "src": "assets/icons/icon-192x192.png",
+          "sizes": "192x192"
+        }
+      ]
     }
   ]
 }

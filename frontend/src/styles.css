@@ -256,3 +256,13 @@ body.light .navbar {
     font-size: 18px;
     font-weight: 600;
 }
+.btn-outline-primary{
+    border-radius:14px;
+    height:50px;
+    font-weight:600;
+}
+
+.btn-outline-primary:hover{
+    transform:translateY(-2px);
+    transition:.3s;
+}

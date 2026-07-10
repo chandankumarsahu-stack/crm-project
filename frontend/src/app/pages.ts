@@ -7,6 +7,9 @@ import {
   LeadType, CustomerLead, FollowUp, Note, DashboardStats,
   STATUS_OPTIONS, PRIORITY_OPTIONS
 } from './models';
+import { PwaService } from './pwa.service';
+import { AfterViewInit } from '@angular/core';
+import { Chart } from 'chart.js/auto';
 
 // ================= LOGIN =================
 @Component({
@@ -67,6 +70,15 @@ import {
 
       Login →
   </button>
+  <button
+    *ngIf="pwa.canInstall()"
+    type="button"
+    class="btn btn-outline-light w-100 mt-3"
+    (click)="pwa.installPwa()">
+
+    📲 Install ZING CRM
+
+</button>
 
 </form>
 
@@ -79,7 +91,12 @@ export class LoginComponent {
   form: FormGroup;
   error = '';
 
-  constructor(private fb: FormBuilder, private auth: AuthService, private router: Router) {
+constructor(
+  private fb: FormBuilder,
+  private auth: AuthService,
+  private router: Router,
+  public pwa: PwaService
+)  {
     this.form = this.fb.group({
       username: ['', Validators.required],
       password: ['', Validators.required]
@@ -87,81 +104,178 @@ export class LoginComponent {
   }
 
   submit() {
-    this.error = '';
-    this.auth.login(this.form.value.username, this.form.value.password).subscribe({
-      next: res => {
-        if (res.success) this.router.navigate(['/dashboard']);
-        else this.error = res.message;
-      },
-      error: () => this.error = 'Login failed. Is the backend running?'
-    });
-  }
+  console.log("Login button clicked");
+
+  this.error = '';
+
+  this.auth.login(
+    this.form.value.username,
+    this.form.value.password
+  ).subscribe({
+    next: res => {
+      console.log(res);
+
+      if (res.success) {
+        this.router.navigate(['/dashboard']);
+      } else {
+        this.error = res.message;
+      }
+    },
+    error: err => {
+      console.log(err);
+      this.error = 'Login failed';
+    }
+  });
+}
 }
 
+
+// ================= DASHBOARD =================
 // ================= DASHBOARD =================
 @Component({
   selector: 'app-dashboard',
   standalone: true,
   imports: [CommonModule],
   template: `
-    <h3>Dashboard</h3>
-    <div class="container-fluid mt-4">
+    <h3 class="mb-4">Dashboard</h3>
 
-    <div class="row g-4">
+    <div class="container-fluid">
+
+      <div class="row g-4">
 
         <div class="col-lg-3 col-md-6">
-            <div class="crm-card stat-card">
-                <div class="icon">👥</div>
-                <h5>Total Leads</h5>
-                <h2>{{stats.totalLeads}}</h2>
-                <small>+12% this month</small>
-            </div>
+          <div class="crm-card stat-card">
+            <div class="icon">👥</div>
+            <h5>Total Leads</h5>
+            <h2>{{stats.totalLeads}}</h2>
+            <small>+12% this month</small>
+          </div>
         </div>
 
         <div class="col-lg-3 col-md-6">
-            <div class="crm-card stat-card">
-                <div class="icon">🔥</div>
-                <h5>Hot Customers</h5>
-                <h2>{{stats.hotCustomers}}</h2>
-                <small>Priority Leads</small>
-            </div>
+          <div class="crm-card stat-card">
+            <div class="icon">🔥</div>
+            <h5>Hot Customers</h5>
+            <h2>{{stats.hotCustomers}}</h2>
+            <small>Priority Leads</small>
+          </div>
         </div>
 
         <div class="col-lg-3 col-md-6">
-            <div class="crm-card stat-card">
-                <div class="icon">📅</div>
-                <h5>Today's Followups</h5>
-                <h2>{{stats.todaysFollowups}}</h2>
-                <small>Scheduled Today</small>
-            </div>
+          <div class="crm-card stat-card">
+            <div class="icon">📅</div>
+            <h5>Today's Followups</h5>
+            <h2>{{stats.todaysFollowups}}</h2>
+            <small>Scheduled Today</small>
+          </div>
         </div>
 
         <div class="col-lg-3 col-md-6">
-            <div class="crm-card stat-card">
-                <div class="icon">✅</div>
-                <h5>Closed Deals</h5>
-                <h2>{{stats.closedDeals}}</h2>
-                <small>Completed</small>
-            </div>
+          <div class="crm-card stat-card">
+            <div class="icon">✅</div>
+            <h5>Closed Deals</h5>
+            <h2>{{stats.closedDeals}}</h2>
+            <small>Completed</small>
+          </div>
         </div>
+
+      </div>
+
+      <div class="row mt-5">
+
+        <div class="col-lg-8">
+
+          <div class="crm-card p-4">
+
+            <h4 class="mb-4">Monthly Leads</h4>
+
+            <canvas id="monthlyLeadsChart"></canvas>
+
+          </div>
+
+        </div>
+
+      </div>
 
     </div>
-
-</div>
   `
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, AfterViewInit {
+
   stats: DashboardStats = {
-  totalLeads: 0,
-  todaysFollowups: 0,
-  pendingFollowups: 0,
-  hotCustomers: 0,
-  closedDeals: 0
-};
+    totalLeads: 0,
+    todaysFollowups: 0,
+    pendingFollowups: 0,
+    hotCustomers: 0,
+    closedDeals: 0
+  };
+
   constructor(private api: ApiService) {}
-  ngOnInit() { this.api.getDashboardStats().subscribe(s => this.stats = s); }
+
+ ngOnInit() {
+
+  this.api.getDashboardStats().subscribe(s => {
+    this.stats = s;
+  });
+
+  this.api.getMonthlyLeadStats().subscribe(data => {
+
+    const monthNames = [
+      '',
+      'Jan','Feb','Mar','Apr','May','Jun',
+      'Jul','Aug','Sep','Oct','Nov','Dec'
+    ];
+
+    const labels = data.map(item => monthNames[item[0]]);
+    const values = data.map(item => item[1]);
+
+    this.createChart(labels, values);
+
+  });
+
 }
 
+  ngAfterViewInit() {
+  }
+
+  createChart(labels: string[], values: number[]) {
+
+  new Chart('monthlyLeadsChart', {
+
+    type: 'bar',
+
+    data: {
+
+      labels,
+
+      datasets: [
+        {
+          label: 'Monthly Leads',
+          data: values,
+          backgroundColor: '#2563eb',
+          borderRadius: 8
+        }
+      ]
+
+    },
+
+    options: {
+
+      responsive: true,
+
+      plugins: {
+        legend: {
+          display: false
+        }
+      }
+
+    }
+
+  });
+
+}
+
+}
 // ================= LEAD TYPES =================
 @Component({
   selector: 'app-lead-type',
